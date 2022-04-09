@@ -1,6 +1,8 @@
 package util
 
 import exception.InvalidInputException
+import model.Line
+import model.TimePositionParser
 import java.io.File
 
 class InputValidator(val args: List<String>) {

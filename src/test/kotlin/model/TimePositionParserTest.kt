@@ -3,6 +3,7 @@ package model
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 import java.text.SimpleDateFormat
+import kotlin.test.assertTrue
 
 internal class TimePositionParserTest {
 
@@ -46,18 +47,5 @@ internal class TimePositionParserTest {
         assertThat(timePosition.location.position).isEqualTo("90%")
         assertThat(timePosition.location.align).isEqualTo("right")
         assertThat(timePosition.location.size).isEqualTo("35%")
-    }
-
-    @Test
-    fun `SimpleDateFormat 학습 테스트`() {
-        val simpleDateFormat = SimpleDateFormat("HH:mm:ss.SSS")
-        val reference = simpleDateFormat.parse("00:00:00.000")
-        val position = simpleDateFormat.parse("00:00:11.324")
-        val milliSecond = position.time - reference.time
-
-        assertThat(milliSecond).isEqualTo(11324)
-
-        val converted = simpleDateFormat.format(11324 + reference.time)
-        assertThat(converted).isEqualTo("00:00:11.324")
     }
 }

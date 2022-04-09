@@ -22,10 +22,11 @@ class TimePositionParser(
             throw InvalidLineSeparatorException("invalid type of line => $line")
         }
 
-        val start = split[0]
-        val end = split[1]
+        val start = parseToMilliSecond(split[0])
+        val end = parseToMilliSecond(split[1])
+        val location = LocationParser(line.getTrimmedLine()).getLocation()
 
-        return TimePosition(parseToMilliSecond(start), parseToMilliSecond(end), Location())
+        return TimePosition(start, end, location)
     }
 
     internal fun parseToMilliSecond(str: String): Long {
