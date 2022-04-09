@@ -1,4 +1,4 @@
-package util
+package reader
 
 import exception.InvalidFormatException
 import model.Line
