@@ -1,7 +1,12 @@
-fun main(args: Array<String>) {
-    println("Hello World!")
+import util.InputValidator
 
-    // Try adding program arguments via Run/Debug configuration.
-    // Learn more about running applications: https://www.jetbrains.com/help/idea/running-applications.html.
+fun main(args: Array<String>) {
+    if (args.isEmpty() || args.size != 2) {
+        println("Use format : vtt-converter [input.vtt] [output.smi]")
+        return
+    }
+    InputValidator(args.toList()).validate()
+
+
     println("Program arguments: ${args.joinToString()}")
 }
