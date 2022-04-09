@@ -1,10 +1,10 @@
+import exception.InvalidInputException
 import org.apache.commons.io.FileUtils
 import org.junit.jupiter.api.Assertions.assertThrows
 import org.junit.jupiter.api.BeforeAll
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.io.TempDir
 import util.InputValidator
-import util.InvalidInputException
 import java.io.File
 
 internal class InputValidatorTest {
@@ -17,10 +17,12 @@ internal class InputValidatorTest {
         @BeforeAll
         @JvmStatic
         fun init() {
-            val dir = File(this.javaClass.getResource("/samples/").path)
-            dir.listFiles()!!.asList().forEach {
-                FileUtils.copyFile(it, File(tempDirectory, it.name))
-            }
+            File(this.javaClass.getResource("/samples/").path)
+                .listFiles()!!
+                .asList()
+                .forEach {
+                    FileUtils.copyFile(it, File(tempDirectory, it.name))
+                }
             tempDirectoryPath = tempDirectory.path
         }
     }
