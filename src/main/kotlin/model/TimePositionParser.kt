@@ -1,28 +1,31 @@
 package model
 
-import exception.InvalidLineSeparator
+import exception.InvalidLineSeparatorException
 import java.text.ParseException
 import java.text.SimpleDateFormat
 
-class PositionParser(
-    val line: Line
+class TimePositionParser(
+    private val line: Line
 ) {
 
     companion object {
         private val reference = SimpleDateFormat("HH:mm:ss.SSS").parse("00:00:00.000")
     }
 
-    fun parseToMilliSecond(): Position {
+    fun parse(): TimePosition {
         if (line.getType() != LineType.POSITION) {
-            throw InvalidLineSeparator("trying to parse position from invalid line => $line")
+            throw InvalidLineSeparatorException("trying to parse position from invalid line => $line")
         }
 
         val split = line.getTrimmedLine().split("-->")
         if (split.size != 2) {
-            throw InvalidLineSeparator("invalid type of line => $line")
+            throw InvalidLineSeparatorException("invalid type of line => $line")
         }
 
-        return Position(0, 0)
+        val start = split[0]
+        val end = split[1]
+
+        return TimePosition(parseToMilliSecond(start), parseToMilliSecond(end), Location())
     }
 
     internal fun parseToMilliSecond(str: String): Long {
@@ -34,6 +37,6 @@ class PositionParser(
             } catch (_: ParseException) {
             }
         }
-        throw InvalidLineSeparator("invalid position => $str")
+        throw InvalidLineSeparatorException("invalid position => $str")
     }
 }

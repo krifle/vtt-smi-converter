@@ -1,6 +1,6 @@
 package model
 
-import exception.InvalidLineSeparator
+import exception.InvalidLineSeparatorException
 
 data class Line(
     val text: String
@@ -13,7 +13,7 @@ data class Line(
 
     fun getType(): LineType {
         if (line.contains(newLine)) {
-            throw InvalidLineSeparator("each line should not contain a new line character")
+            throw InvalidLineSeparatorException("each line should not contain a new line character")
         }
 
         if (line.isBlank()) {
