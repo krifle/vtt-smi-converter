@@ -12,7 +12,6 @@ class VttReader(
 ) {
     private val vtt = Vtt()
     private val lineStack = Stack<Line>()
-    private var currentMode = LineType.HEADER
 
     fun read(): Vtt {
         val lines = inputVtt.readLines()
@@ -36,12 +35,18 @@ class VttReader(
 
                 if (lineType == LineType.EMPTY) { // EMPTY 일 때 lineStack 에 있는 걸 처리한다. Stack 에 있는게 어떤 종류인지 판단한다
                     val lineStackAnalyzer = LineStackAnalyzer(lineStack)
+
+                    if (lineStackAnalyzer.isCue()) {
+                        vtt.cues.add(lineStackAnalyzer.toCue())
+                    }
+
+                    lineStack.clear()
                 }
 
                 lineStack.push(line)
             }
         }
 
-        return Vtt()
+        return vtt
     }
 }

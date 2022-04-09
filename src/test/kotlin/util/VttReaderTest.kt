@@ -1,5 +1,6 @@
 package util
 
+import com.google.gson.Gson
 import exception.InvalidFormatException
 import org.apache.commons.io.FileUtils
 import org.junit.jupiter.api.Assertions.assertThrows
@@ -7,7 +8,6 @@ import org.junit.jupiter.api.BeforeAll
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.io.TempDir
 import java.io.File
-import java.util.*
 
 internal class VttReaderTest {
     companion object {
@@ -27,6 +27,18 @@ internal class VttReaderTest {
     }
 
     @Test
+    fun `가장 기본적인 vtt 읽기 테스트`() {
+        // given
+        val vttFile = File(tempDirectory, "basic.vtt")
+
+        // when
+        val result = VttReader(vttFile).read()
+
+        // then
+        println(Gson().toJson(result.cues))
+    }
+
+    @Test
     fun `샘플 vtt 를 읽어서 cues 를 만들어 보자`() {
         // given
         val vttFile = File(tempDirectory, "sample01.vtt")
@@ -35,6 +47,19 @@ internal class VttReaderTest {
         val result = VttReader(vttFile).read()
 
         // then
+        println(Gson().toJson(result.cues))
+    }
+
+    @Test
+    fun `align 속성이 있는 vtt 생성 테스트`() {
+        // given
+        val vttFile = File(tempDirectory, "caption-with-align.vtt")
+
+        // when
+        val result = VttReader(vttFile).read()
+
+        // then
+        println(Gson().toJson(result.cues))
     }
 
     @Test
@@ -66,17 +91,5 @@ internal class VttReaderTest {
                 println("processed => $it")
             }
         }
-    }
-
-    @Test
-    fun t() {
-        val stack = Stack<Int>()
-        stack.push(1)
-        stack.push(2)
-        stack.push(3)
-
-        val list = stack.toList()
-
-        println(list)
     }
 }

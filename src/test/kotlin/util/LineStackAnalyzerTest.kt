@@ -93,4 +93,21 @@ internal class LineStackAnalyzerTest {
         assertThat(cue.position.location.region).isEmpty()
         assertThat(cue.dialog).isEqualTo("This is a test.")
     }
+
+    @Test
+    fun `lineStack 에 있는걸 cue 타입인지 분석한다`() {
+        // given
+        val lines = Stack<Line>()
+        lines.push(Line(""))
+        lines.push(Line("test"))
+        lines.push(Line("00:00.000 --> 00:02.000 position:10%,line-left align:left size:35%"))
+        lines.push(Line("This is a test."))
+        val sut = LineStackAnalyzer(lines)
+
+        // when
+        val result = sut.isCue()
+
+        // then
+        assertTrue(result)
+    }
 }

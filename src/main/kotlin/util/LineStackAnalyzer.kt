@@ -9,7 +9,7 @@ import java.util.*
 
 class LineStackAnalyzer(lines: Stack<Line>) {
 
-    private val lineList = lines.toList()
+    private val lineList = lines.toList().filter { it.text.isNotEmpty() }
 
     fun toCue(): Cue {
         if (!isCue()) {
@@ -29,9 +29,6 @@ class LineStackAnalyzer(lines: Stack<Line>) {
     }
 
     fun isCue(): Boolean {
-        if (lineList.any { it.getType() == LineType.EMPTY }) {
-            return false
-        }
         return lineList.filter { it.getType() == LineType.POSITION }.size == 1
     }
 }
