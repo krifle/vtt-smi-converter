@@ -3,9 +3,9 @@ package model
 import java.text.SimpleDateFormat
 
 data class TimePosition(
-    val start: Long,
-    val end: Long,
-    val location: Location
+    val start: Long = -1L,
+    val end: Long = -1L,
+    val location: Location = Location()
 ) {
     companion object {
         private val reference = SimpleDateFormat("HH:mm:ss.SSS").parse("00:00:00.000")

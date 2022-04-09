@@ -3,6 +3,7 @@ package util
 import com.google.gson.Gson
 import exception.InvalidFormatException
 import org.apache.commons.io.FileUtils
+import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Assertions.assertThrows
 import org.junit.jupiter.api.BeforeAll
 import org.junit.jupiter.api.Test
@@ -36,7 +37,13 @@ internal class VttReaderTest {
         val result = VttReader(vttFile).read()
 
         // then
-        println(Gson().toJson(result.cues))
+        val cues = result.getCueList()
+        println(Gson().toJson(cues))
+        assertThat(cues).hasSize(2)
+
+        val regions = result.getRegionList()
+        println(Gson().toJson(regions))
+        assertThat(regions).hasSize(1)
     }
 
     @Test
@@ -48,7 +55,7 @@ internal class VttReaderTest {
         val result = VttReader(vttFile).read()
 
         // then
-        println(Gson().toJson(result.cues))
+        println(Gson().toJson(result.getCueList()))
     }
 
     @Test
@@ -60,7 +67,7 @@ internal class VttReaderTest {
         val result = VttReader(vttFile).read()
 
         // then
-        println(Gson().toJson(result.cues))
+        println(Gson().toJson(result.getCueList()))
     }
 
     @Test

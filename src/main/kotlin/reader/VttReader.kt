@@ -20,8 +20,8 @@ class VttReader(
             throw InvalidFormatException("Empty vtt file => ${inputVtt.absolutePath}")
         }
 
-        if (lines[0].trim() != "WEBVTT") { // check for WebVTT header
-            throw InvalidFormatException("Invalid WEBVTT file => ${inputVtt.absolutePath}")
+        if (lines[0].trim() != "WEBVTT") {
+            throw InvalidFormatException("Invalid WEBVTT file format => ${inputVtt.absolutePath}")
         }
 
         run lineBreaker@ {
@@ -29,24 +29,32 @@ class VttReader(
                 val line = Line(it)
                 val lineType = line.getType()
 
-                if (lineType == LineType.HEADER) { // 헤더는 넘긴다
+                if (lineType == LineType.HEADER) {
                     return@lineContinue
                 }
 
-                if (lineType == LineType.EMPTY) { // EMPTY 일 때 lineStack 에 있는 걸 처리한다. Stack 에 있는게 어떤 종류인지 판단한다
-                    val lineStackAnalyzer = LineStackAnalyzer(lineStack)
-
-                    if (lineStackAnalyzer.isCue()) {
-                        vtt.cues.add(lineStackAnalyzer.toCue())
-                    }
-
-                    lineStack.clear()
+                if (lineType == LineType.EMPTY) {
+                    consumeStack()
                 }
 
                 lineStack.push(line)
             }
         }
+        if (lineStack.isNotEmpty()) {
+            consumeStack()
+        }
 
         return vtt
+    }
+
+    private fun consumeStack() {
+        val lineStackAnalyzer = LineStackAnalyzer(lineStack)
+        if (lineStackAnalyzer.isCue()) {
+            vtt.addCue(lineStackAnalyzer.toCue())
+        }
+        if (lineStackAnalyzer.isRegion()) {
+            vtt.addRegion(lineStackAnalyzer.toRegion())
+        }
+        lineStack.clear()
     }
 }

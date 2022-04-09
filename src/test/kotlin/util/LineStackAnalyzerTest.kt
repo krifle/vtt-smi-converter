@@ -111,4 +111,29 @@ internal class LineStackAnalyzerTest {
         // then
         assertTrue(result)
     }
+
+    @Test
+    fun `Region 만들기`() {
+        // given
+        val lines = Stack<Line>()
+        lines.push(Line("REGION"))
+        lines.push(Line("id:bill"))
+        lines.push(Line("width:40%"))
+        lines.push(Line("lines:3"))
+        lines.push(Line("regionanchor:100%,100%"))
+        lines.push(Line("viewportanchor:90%,90%"))
+        lines.push(Line("scroll:up"))
+        val sut = LineStackAnalyzer(lines)
+
+        // when
+        val result = sut.toRegion()
+
+        // then
+        assertThat(result.id).isEqualTo("bill")
+        assertThat(result.width).isEqualTo("40%")
+        assertThat(result.lines).isEqualTo(3)
+        assertThat(result.regionAnchor).isEqualTo("100%,100%")
+        assertThat(result.viewPortAnchor).isEqualTo("90%,90%")
+        assertThat(result.scroll).isEqualTo("up")
+    }
 }

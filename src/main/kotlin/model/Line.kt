@@ -20,6 +20,10 @@ data class Line(
             return LineType.EMPTY
         }
 
+        if (line.startsWith("/*") && line.endsWith("*/")) {
+            return LineType.EMPTY
+        }
+
         if (line == "WEBVTT") {
             return LineType.HEADER
         }

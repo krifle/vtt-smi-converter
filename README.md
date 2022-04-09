@@ -1,6 +1,6 @@
 # SMI VTT Converter
 
-## Subject
+## Goal
 - Converts VTT to SMI
 
 ## WebVTT Spec

@@ -7,6 +7,8 @@ class SamiWriter(
     private val vtt: Vtt,
     private val outputSmi: File
 ) {
+    private val stringBuffer = StringBuffer()
+
     fun write(): File {
         return outputSmi
     }

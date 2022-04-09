@@ -1,34 +1,36 @@
 package reader
 
 import exception.IllegalCueMakingException
-import model.Cue
-import model.Line
-import model.LineType
-import model.TimePositionParser
+import exception.IllegalRegionMakingException
+import model.*
 import java.util.*
 
-class LineStackAnalyzer(lines: Stack<Line>) {
+class LineStackAnalyzer(lineStack: Stack<Line>) {
 
-    private val lineList = lines.toList().filter { it.text.isNotEmpty() }
+    private val lineList = lineStack.toList().filter { it.text.isNotEmpty() }
+
+    fun isCue(): Boolean {
+        return lineList.filter { it.getType() == LineType.POSITION }.size == 1
+    }
 
     fun toCue(): Cue {
         if (!isCue()) {
             val lineTexts = lineList.map { it.text }
             throw IllegalCueMakingException("invalid cue making from list => $lineTexts")
         }
-
-        val identifierLine = lineList.first()
-        val identifier = if (identifierLine.getType() == LineType.POSITION) "" else identifierLine.text
-
-        val thePosition = lineList.first { it.getType() == LineType.POSITION }
-        val timePosition = TimePositionParser(thePosition).parse()
-
-        val dialog = lineList.last()
-
-        return Cue(identifier, timePosition, dialog.text)
+        return CueParser(lineList).parse()
     }
 
-    fun isCue(): Boolean {
-        return lineList.filter { it.getType() == LineType.POSITION }.size == 1
+    fun isRegion(): Boolean {
+        return lineList.filter { it.getType() == LineType.REGION }.size == 1
+    }
+
+    fun toRegion(): Region {
+        if (!isRegion()) {
+            val lineTexts = lineList.map { it.text }
+            throw IllegalRegionMakingException("invalid region making from list => $lineTexts")
+        }
+
+        return RegionParser(lineList).parse()
     }
 }
