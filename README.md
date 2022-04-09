@@ -8,3 +8,13 @@
 
 ## SMI Spec
 - https://docs.microsoft.com/ko-kr/previous-versions/windows/desktop/dnacc/understanding-sami-1.0?redirectedfrom=MSDN
+
+## Build
+```
+mvn package
+```
+
+## Usage
+```
+java -jar vtt-converter.jar [input.vtt] [output.smi]
+```

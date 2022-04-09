@@ -24,16 +24,16 @@ class InputValidator(val args: List<String>) {
             throw InvalidInputException("second argument should be .smi or .sami")
         }
 
-        val inputVttFile = getFile(inputVtt)
-        val outputSmiFile = getFile(outputSmi)
+        val inputVttFile = getInputFile(inputVtt)
+        val outputSmiFile = getOutputFile(outputSmi)
 
 
         return Arguments(inputVttFile, outputSmiFile)
     }
 
-    private fun getFile(path: String): File {
+    private fun getInputFile(path: String): File {
         val absoluteFile = File(path)
-        if (absoluteFile.exists()) { // 먼저 받은 input argument 가 절대경로인지 확인한다.
+        if (absoluteFile.exists()) {
             return absoluteFile
         }
 
@@ -48,5 +48,14 @@ class InputValidator(val args: List<String>) {
         }
 
         throw InvalidInputException("such file does not exists => $path")
+    }
+
+    private fun getOutputFile(path: String): File {
+        if (path.contains(File.separator)) {
+            return File(path)
+        }
+
+        val currentDirectory = File(System.getProperty("user.dir"))
+        return File(currentDirectory, path)
     }
 }

@@ -22,13 +22,13 @@ class Converter(
     fun convert(): Sami {
         val titleTag = TitleTag(title)
         val style = """
-            <!--
-            P { $defaultPStyle }
-            ${langClass.writeAsStyle()}
-            #STDPrn { Name:Standard Print; }
-            #LargePrn { Name:Large Print; font-size:20pt; }
-            #SmallPrn { Name:Small Print; font-size:10pt; }
-            -->
+<!--
+P { $defaultPStyle }
+${langClass.writeAsStyle()}
+#STDPrn { Name:Standard Print; }
+#LargePrn { Name:Large Print; font-size:20pt; }
+#SmallPrn { Name:Small Print; font-size:10pt; }
+-->
         """.trimIndent()
         val styleTag = StyleTag(style)
         val headTag = HeadTag(titleTag, styleTag)

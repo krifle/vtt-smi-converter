@@ -12,10 +12,9 @@ class VttReader(
 ) {
     private val vtt = Vtt()
     private val lineStack = Stack<Line>()
+    private val lines = inputVtt.readLines()
 
     fun read(): Vtt {
-        val lines = inputVtt.readLines()
-
         if (lines.isEmpty()) {
             throw InvalidFormatException("Empty vtt file => ${inputVtt.absolutePath}")
         }
@@ -45,6 +44,10 @@ class VttReader(
         }
 
         return vtt
+    }
+
+    fun dryText(): String {
+        return lines.joinToString("\n")
     }
 
     private fun consumeStack() {
