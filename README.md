@@ -1,4 +1,4 @@
-# SMI VTT Converter
+# SMI VTT converter.Converter
 
 ## Goal
 - Converts VTT to SMI

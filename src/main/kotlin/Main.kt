@@ -7,6 +7,5 @@ fun main(args: Array<String>) {
     }
     InputValidator(args.toList()).validate()
 
-
     println("Program arguments: ${args.joinToString()}")
 }
