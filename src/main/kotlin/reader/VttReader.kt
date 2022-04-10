@@ -1,6 +1,7 @@
 package reader
 
 import exception.InvalidFormatException
+import model.LangClass
 import model.Line
 import model.LineType
 import model.Vtt
@@ -8,7 +9,8 @@ import java.io.File
 import java.util.*
 
 class VttReader(
-    private val inputVtt: File
+    private val inputVtt: File,
+    private val langClass: LangClass
 ) {
     private val vtt = Vtt()
     private val lineStack = Stack<Line>()
@@ -45,6 +47,7 @@ class VttReader(
             consumeStack()
         }
 
+        vtt.setLangClass(langClass)
         return vtt
     }
 

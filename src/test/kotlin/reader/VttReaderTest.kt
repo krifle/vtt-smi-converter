@@ -2,6 +2,7 @@ package reader
 
 import com.google.gson.Gson
 import exception.InvalidFormatException
+import model.LangClass
 import org.apache.commons.io.FileUtils
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Assertions.assertThrows
@@ -33,7 +34,7 @@ internal class VttReaderTest {
         val vttFile = File(tempDirectory, "basic.vtt")
 
         // when
-        val result = VttReader(vttFile).read()
+        val result = VttReader(vttFile, LangClass.KRCC).read()
 
         // then
         val cues = result.getCueList()
@@ -51,7 +52,7 @@ internal class VttReaderTest {
         val vttFile = File(tempDirectory, "sample01.vtt")
 
         // when
-        val result = VttReader(vttFile).read()
+        val result = VttReader(vttFile, LangClass.KRCC).read()
 
         // then
         println(Gson().toJson(result.getCueList()))
@@ -63,7 +64,7 @@ internal class VttReaderTest {
         val vttFile = File(tempDirectory, "caption-with-align.vtt")
 
         // when
-        val result = VttReader(vttFile).read()
+        val result = VttReader(vttFile, LangClass.KRCC).read()
 
         // then
         println(Gson().toJson(result.getCueList()))
@@ -76,7 +77,7 @@ internal class VttReaderTest {
 
         // when // then
         assertThrows(InvalidFormatException::class.java) {
-            VttReader(vttFile).read()
+            VttReader(vttFile, LangClass.KRCC).read()
         }
     }
 
@@ -86,7 +87,7 @@ internal class VttReaderTest {
         val vttFile = File(tempDirectory, "vtt-with-text-header.vtt")
 
         // when
-        val result = VttReader(vttFile).read()
+        val result = VttReader(vttFile, LangClass.KRCC).read()
 
         // then
         assertThat(result.getTitle()).isEqualTo("This file has cues.")
@@ -99,7 +100,7 @@ internal class VttReaderTest {
         val vttFile = File(tempDirectory, "vtt-with-note.vtt")
 
         // when
-        val result = VttReader(vttFile).read()
+        val result = VttReader(vttFile, LangClass.KRCC).read()
 
         // then
         assertThat(result.getNoteList()).hasSize(2)

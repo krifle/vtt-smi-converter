@@ -4,6 +4,7 @@ import writer.SyncTag
 
 class Vtt {
     private var title: String = ""
+    private var langClass = LangClass.KRCC
     private val cues = mutableListOf<Cue>()
     private val regions = mutableListOf<Region>()
     private val notes = mutableListOf<Note>()
@@ -14,6 +15,14 @@ class Vtt {
 
     fun getTitle(): String {
         return this.title
+    }
+
+    fun setLangClass(langClass: LangClass) {
+        this.langClass = langClass
+    }
+
+    fun getLangclass(): LangClass {
+        return langClass
     }
 
     fun addCue(cue: Cue) {
@@ -32,7 +41,7 @@ class Vtt {
         return regions.toList()
     }
 
-    fun cuesToSyncTagList(langClass: LangClass): List<SyncTag> {
+    fun cuesToSyncTagList(): List<SyncTag> {
         return cues.map {
             SyncTag(
                 start = it.position.start,

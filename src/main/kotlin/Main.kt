@@ -3,7 +3,7 @@ import reader.VttReader
 import writer.SamiWriter
 
 fun main(args: Array<String>) {
-    if (args.isEmpty() || args.size != 2) {
+    if (args.isEmpty() || args.size < 3) {
         println("""
             vtt-converter
 
@@ -27,11 +27,11 @@ fun main(args: Array<String>) {
     val arguments = InputValidator(args.toList()).validate()
 
     val vttList = arguments.inputVttList
-        .map {
-            println("File read from ${it.absolutePath} : \n")
-            val vttReader = VttReader(it)
+        .mapIndexed { index, file ->
+            println("File read from ${file.absolutePath} : \n")
+            val vttReader = VttReader(file, arguments.inputLangClassList[index])
             println(vttReader.dryText())
-            return@map vttReader
+            return@mapIndexed vttReader
         }
         .map {
             it.read()

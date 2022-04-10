@@ -1,15 +1,10 @@
-package converter
-
-import com.google.gson.Gson
-import model.LangClass
 import org.apache.commons.io.FileUtils
 import org.junit.jupiter.api.BeforeAll
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.io.TempDir
-import reader.VttReader
 import java.io.File
 
-internal class ConverterTest {
+internal class MainKtTest {
 
     companion object {
         @TempDir
@@ -28,16 +23,18 @@ internal class ConverterTest {
     }
 
     @Test
-    fun `convert 동작 테스트`() {
+    fun runTest() {
         // given
-        val vttFile = File(tempDirectory, "basic.vtt")
-        val vtt = VttReader(vttFile, LangClass.KRCC).read()
+        val koVttFile = File(tempDirectory, "kr.vtt")
+        val enVttFile = File(tempDirectory, "en.vtt")
+        val outputSmiFile = File(tempDirectory, "out.smi")
+        val args = listOf(
+            koVttFile.absolutePath, "KRCC",
+            enVttFile.absolutePath, "ENCC",
+            outputSmiFile.absolutePath
+        )
 
         // when
-        val sut = Converter(listOf(vtt))
-        val sami = sut.convert()
-
-        // then
-        println(Gson().toJson(sami))
+        main(args.toTypedArray())
     }
 }

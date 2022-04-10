@@ -13,7 +13,7 @@ class VttTest {
         sut.addCue(Cue("", TimePosition(3000L, 6000L, Location()), "Occidit, formam non bona fama bonam."))
 
         // when
-        val result = sut.cuesToSyncTagList(LangClass.KRCC)
+        val result = sut.cuesToSyncTagList()
 
         // then
         println(Gson().toJson(result))
