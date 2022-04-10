@@ -1,4 +1,4 @@
-package util
+package input
 
 import java.io.File
 

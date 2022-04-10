@@ -1,4 +1,4 @@
-package util
+package input
 
 import exception.InvalidInputException
 import java.io.File

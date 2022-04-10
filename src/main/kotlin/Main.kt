@@ -1,5 +1,5 @@
+import input.InputValidator
 import reader.VttReader
-import util.InputValidator
 import writer.SamiWriter
 
 fun main(args: Array<String>) {

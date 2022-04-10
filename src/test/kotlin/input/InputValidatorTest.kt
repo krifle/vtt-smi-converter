@@ -1,10 +1,11 @@
+package input
+
 import exception.InvalidInputException
 import org.apache.commons.io.FileUtils
 import org.junit.jupiter.api.Assertions.assertThrows
 import org.junit.jupiter.api.BeforeAll
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.io.TempDir
-import util.InputValidator
 import java.io.File
 
 internal class InputValidatorTest {

@@ -1,4 +1,4 @@
-package util
+package reader
 
 import exception.IllegalCueMakingException
 import model.Line
@@ -6,7 +6,6 @@ import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Assertions.assertThrows
 import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.Test
-import reader.LineStackAnalyzer
 import java.util.*
 
 internal class LineStackAnalyzerTest {
