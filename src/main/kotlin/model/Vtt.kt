@@ -3,8 +3,18 @@ package model
 import writer.SyncTag
 
 class Vtt {
+    private var title: String = ""
     private val cues = mutableListOf<Cue>()
     private val regions = mutableListOf<Region>()
+    private val notes = mutableListOf<Note>()
+
+    fun setTitle(title: String) {
+        this.title = title
+    }
+
+    fun getTitle(): String {
+        return this.title
+    }
 
     fun addCue(cue: Cue) {
         cues.add(cue)
@@ -31,5 +41,13 @@ class Vtt {
                 dialog = it.dialog
             )
         }
+    }
+
+    fun addNote(note: Note) {
+        notes.add(note)
+    }
+
+    fun getNoteList(): List<Note> {
+        return notes
     }
 }

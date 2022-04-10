@@ -33,4 +33,16 @@ class LineStackAnalyzer(lineStack: Stack<Line>) {
 
         return RegionParser(lineList).parse()
     }
+
+    fun isNote(): Boolean {
+        return lineList.any { it.getType() == LineType.NOTE }
+    }
+
+    fun toNote(): Note {
+        val lineTexts = lineList.map { it.text }
+        if (!isNote()) {
+            throw IllegalRegionMakingException("invalid note making from list => $lineTexts")
+        }
+        return Note(lineTexts.joinToString("\n"))
+    }
 }

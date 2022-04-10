@@ -24,7 +24,7 @@ data class Line(
             return LineType.EMPTY
         }
 
-        if (line == "WEBVTT") {
+        if (line.startsWith("WEBVTT")) {
             return LineType.HEADER
         }
 
@@ -32,7 +32,7 @@ data class Line(
             return LineType.STYLE
         }
 
-        if (line == "NOTE") {
+        if (line.startsWith("NOTE")) {
             return LineType.NOTE
         }
 

@@ -81,22 +81,28 @@ internal class VttReaderTest {
     }
 
     @Test
-    fun `Kotlin forEach 에서 break, continue 학습 테스트`() {
-        val list = listOf(1, 2, 3, 4, 5, 6, 7, 8)
+    fun `vtt-with-text-header 읽기 테스트`() {
+        // given
+        val vttFile = File(tempDirectory, "vtt-with-text-header.vtt")
 
-        run lineIterator@ {
-            list.forEach lineContinue@ {
-                println(it)
-                if (it == 2) {
-                    println("return@forEach") // continue
-                    return@lineContinue
-                }
-                if (it == 4) {
-                    println("return@lineIterator") // break
-                    return@lineIterator
-                }
-                println("processed => $it")
-            }
-        }
+        // when
+        val result = VttReader(vttFile).read()
+
+        // then
+        assertThat(result.getTitle()).isEqualTo("This file has cues.")
+        println(Gson().toJson(result))
+    }
+
+    @Test
+    fun `vtt-with-note 읽기 테스트`() {
+        // given
+        val vttFile = File(tempDirectory, "vtt-with-note.vtt")
+
+        // when
+        val result = VttReader(vttFile).read()
+
+        // then
+        assertThat(result.getNoteList()).hasSize(2)
+        println(Gson().toJson(result.getNoteList()))
     }
 }

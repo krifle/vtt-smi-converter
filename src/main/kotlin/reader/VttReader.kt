@@ -19,7 +19,7 @@ class VttReader(
             throw InvalidFormatException("Empty vtt file => ${inputVtt.absolutePath}")
         }
 
-        if (lines[0].trim() != "WEBVTT") {
+        if (!lines[0].trim().startsWith("WEBVTT")) {
             throw InvalidFormatException("Invalid WEBVTT file format => ${inputVtt.absolutePath}")
         }
 
@@ -29,6 +29,8 @@ class VttReader(
                 val lineType = line.getType()
 
                 if (lineType == LineType.HEADER) {
+                    val headerStartIndex = line.text.indexOf("-") + 1
+                    vtt.setTitle(line.text.substring(headerStartIndex, line.text.length).trim())
                     return@lineContinue
                 }
 
@@ -57,6 +59,9 @@ class VttReader(
         }
         if (lineStackAnalyzer.isRegion()) {
             vtt.addRegion(lineStackAnalyzer.toRegion())
+        }
+        if (lineStackAnalyzer.isNote()) {
+            vtt.addNote(lineStackAnalyzer.toNote())
         }
         lineStack.clear()
     }
