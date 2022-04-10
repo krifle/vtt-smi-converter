@@ -33,7 +33,7 @@ internal class SamiWriterTest {
         val outputFile = File(tempDirectory, "writeTest.smi")
 
         // when
-        val sut = SamiWriter(vtt, outputFile).vttToSamiText()
+        val sut = SamiWriter(listOf(vtt), outputFile).vttToSamiText()
 
         // then
         println(sut)
@@ -47,7 +47,7 @@ internal class SamiWriterTest {
         val outputFile = File(tempDirectory, "writeTest.smi")
 
         // when
-        val sut = SamiWriter(vtt, outputFile).vttToSamiText()
+        val sut = SamiWriter(listOf(vtt), outputFile).vttToSamiText()
 
         // then
         println(sut)

@@ -5,7 +5,7 @@ import model.Vtt
 import java.io.File
 
 class SamiWriter(
-    private val vtt: Vtt,
+    private val vttList: List<Vtt>,
     private val outputSmi: File
 ) {
     fun write(): File {
@@ -15,7 +15,7 @@ class SamiWriter(
     }
 
     internal fun vttToSamiText(): String {
-        val sami = Converter(vtt).convert()
+        val sami = Converter(vttList).convert()
 
         val stringBuffer = StringBuffer()
 

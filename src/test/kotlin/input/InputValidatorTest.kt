@@ -29,21 +29,6 @@ internal class InputValidatorTest {
     }
 
     @Test
-    fun `argument 는 3개 이상 받으면 에러`() {
-        // given 1. input 이 하나라면 에러
-        val args = listOf(
-            "$tempDirectoryPath/sample01.vtt",
-            "$tempDirectoryPath/sample-kor-01.smi",
-            "$tempDirectoryPath/sample-kor-eng-01.smi"
-        )
-
-        // when // then
-        assertThrows(InvalidInputException::class.java) {
-            InputValidator(args).validate()
-        }
-    }
-
-    @Test
     fun `argument 1개 이하 받으면 에러`() {
         // given 2 input 이 1개라면 에러
         val args = listOf(
@@ -72,6 +57,7 @@ internal class InputValidatorTest {
         // given 3 하지만 2개 input 이라면 OK
         val args = listOf(
             "$tempDirectoryPath/sample01.vtt",
+            "KRCC",
             "$tempDirectoryPath/sample-kor-01.smi"
         )
 
@@ -80,10 +66,11 @@ internal class InputValidatorTest {
     }
 
     @Test
-    fun `첫 번째 input 은 vtt 형식이 아니면 에러 발생`() {
+    fun `첫 번째 argument 는 vtt 형식이 아니면 에러 발생`() {
         // given
         val args = listOf(
             "$tempDirectoryPath/sample-kor-01.smi",
+            "KRCC",
             "$tempDirectoryPath/sample-kor-eng-01.smi"
         )
 
@@ -94,10 +81,11 @@ internal class InputValidatorTest {
     }
 
     @Test
-    fun `첫 번째 input 은 존재하는 파일이어야 한다`() {
+    fun `첫 번째 argument 는 존재하는 파일이어야 한다`() {
         // given
         val args = listOf(
             "$tempDirectoryPath/not-existing-file.vtt",
+            "KRCC",
             "$tempDirectoryPath/sample-kor-eng-01.smi"
         )
 
@@ -108,10 +96,11 @@ internal class InputValidatorTest {
     }
 
     @Test
-    fun `두 번째 input 은 smi 형식이 아니면 에러 발생`() {
+    fun `마지막 argument 는 smi 형식이 아니면 에러 발생`() {
         // given
         val args = listOf(
             "$tempDirectoryPath/sample-kor-01.vtt",
+            "KRCC",
             "$tempDirectoryPath/sample01.vtt"
         )
 

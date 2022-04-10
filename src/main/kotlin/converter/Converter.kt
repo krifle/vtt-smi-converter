@@ -5,7 +5,7 @@ import model.Vtt
 import writer.*
 
 class Converter(
-    private val vtt: Vtt
+    private val vttList: List<Vtt>
 ) {
     companion object {
         private val defaultPStyle = """
@@ -16,7 +16,7 @@ class Converter(
         """.trimIndent()
     }
 
-    private val title: String = "" // TODO input 으로 받기
+    private val title: String = "" // TODO vtt.title
     private val langClass = LangClass.KRCC // TODO input 으로 받기
 
     fun convert(): Sami {
@@ -32,7 +32,8 @@ ${langClass.writeAsStyle()}
         """.trimIndent()
         val styleTag = StyleTag(style)
         val headTag = HeadTag(titleTag, styleTag)
-        val bodyTag = BodyTag(vtt.cuesToSyncTagList(langClass))
+//        val bodyTag = BodyTag(vtt.cuesToSyncTagList(langClass)) // TODO
+        val bodyTag = BodyTag()
         return Sami(
             head = headTag,
             body = bodyTag

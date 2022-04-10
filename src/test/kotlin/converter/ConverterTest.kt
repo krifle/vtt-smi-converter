@@ -33,7 +33,7 @@ internal class ConverterTest {
         val vtt = VttReader(vttFile).read()
 
         // when
-        val sut = Converter(vtt)
+        val sut = Converter(listOf(vtt))
         val sami = sut.convert()
 
         // then
