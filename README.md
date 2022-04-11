@@ -16,11 +16,20 @@ mvn package
 
 ## Usage
 ```
-java -jar vtt-converter.jar [input.vtt] [output.smi]
+Use format : java -jar vtt-converter-1.0-SNAPSHOT.jar [[input1.vtt] [langClass1] ..] [output.smi]
 
-Program arguments: sample.vtt, sample.smi
+Where langClass are:
+- KRCC : For Korean
+- ENCC : For English
+- JACC : For Japanese
+- CHCC : For Chinese
+```
 
-File read from /Users/user/Desktop/temp/sample.vtt : 
+## Example 1. Single VTT convert to SMI
+```
+java -jar vtt-converter.jar input.vtt KRCC output.smi
+
+File read from /Users/user/Desktop/temp/input.vtt : 
 WEBVTT
 
 1
@@ -71,7 +80,8 @@ hhmm... hhmmm... hmmm...
 00:00:33.600 --> 00:00:34.000
 FRANK!!!
 
-Result on /Users/user/Desktop/temp/sample.smi : 
+Result on /Users/user/Desktop/temp/output.smi :
+ 
 <SAMI>
 <HEAD>
 <TITLE></TITLE>
@@ -138,5 +148,9 @@ background-color:black; }
 <P Class=KRCC>&nbsp;</P>
 </BODY>
 </SAMI>
+```
 
+## Example 2. Multi language VTTs convert to a single SMI
+```
+java -jar vtt-converter.jar input1.vtt KRCC input2.vtt ENCC output.smi
 ```
