@@ -37,11 +37,11 @@ internal class VttReaderTest {
         val result = VttReader(vttFile, LangClass.KRCC).read()
 
         // then
-        val cues = result.getCueList()
+        val cues = result.cues
         println(Gson().toJson(cues))
         assertThat(cues).hasSize(2)
 
-        val regions = result.getRegionList()
+        val regions = result.regions
         println(Gson().toJson(regions))
         assertThat(regions).hasSize(1)
     }
@@ -55,7 +55,7 @@ internal class VttReaderTest {
         val result = VttReader(vttFile, LangClass.KRCC).read()
 
         // then
-        println(Gson().toJson(result.getCueList()))
+        println(Gson().toJson(result.cues))
     }
 
     @Test
@@ -67,7 +67,7 @@ internal class VttReaderTest {
         val result = VttReader(vttFile, LangClass.KRCC).read()
 
         // then
-        println(Gson().toJson(result.getCueList()))
+        println(Gson().toJson(result.cues))
     }
 
     @Test
@@ -90,7 +90,7 @@ internal class VttReaderTest {
         val result = VttReader(vttFile, LangClass.KRCC).read()
 
         // then
-        assertThat(result.getTitle()).isEqualTo("This file has cues.")
+        assertThat(result.title).isEqualTo("This file has cues.")
         println(Gson().toJson(result))
     }
 
@@ -103,7 +103,7 @@ internal class VttReaderTest {
         val result = VttReader(vttFile, LangClass.KRCC).read()
 
         // then
-        assertThat(result.getNoteList()).hasSize(2)
-        println(Gson().toJson(result.getNoteList()))
+        assertThat(result.notes).hasSize(2)
+        println(Gson().toJson(result.notes))
     }
 }

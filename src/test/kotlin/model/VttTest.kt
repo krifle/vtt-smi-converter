@@ -8,9 +8,10 @@ class VttTest {
     @Test
     fun `cues 변환 테스트`() {
         // given
-        val sut = Vtt()
-        sut.addCue(Cue("", TimePosition(1000L, 3000L, Location()), "Forma tibi famam peperit: sed filia matrem"))
-        sut.addCue(Cue("", TimePosition(3000L, 6000L, Location()), "Occidit, formam non bona fama bonam."))
+        val vttBuilder = VttBuilder()
+        vttBuilder.addCue(Cue("", TimePosition(1000L, 3000L, Location()), "Forma tibi famam peperit: sed filia matrem"))
+        vttBuilder.addCue(Cue("", TimePosition(3000L, 6000L, Location()), "Occidit, formam non bona fama bonam."))
+        val sut = vttBuilder.build()
 
         // when
         val result = sut.cuesToSyncTagList()

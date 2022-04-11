@@ -15,7 +15,7 @@ background-color:black;
         """.trimIndent()
     }
 
-    private val title: String = vttList.first().getTitle()
+    private val title: String = vttList.first().title
 
     fun convert(): Sami {
         val titleTag = TitleTag(title)
@@ -40,7 +40,7 @@ ${printLangClass()}
 
     private fun printLangClass(): String {
         val stringBuffer = StringBuffer()
-        vttList.map { it.getLangclass() }.forEach {
+        vttList.map { it.langClass }.forEach {
             stringBuffer.append(it.writeAsStyle())
             stringBuffer.append("\n")
         }

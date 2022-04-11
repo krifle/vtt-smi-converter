@@ -1,10 +1,7 @@
 package reader
 
 import exception.InvalidFormatException
-import model.LangClass
-import model.Line
-import model.LineType
-import model.Vtt
+import model.*
 import java.io.File
 import java.util.*
 
@@ -12,7 +9,7 @@ class VttReader(
     private val inputVtt: File,
     private val langClass: LangClass
 ) {
-    private val vtt = Vtt()
+    private val vttBuilder = VttBuilder()
     private val lineStack = Stack<Line>()
     private val lines = inputVtt.readLines()
 
@@ -32,7 +29,7 @@ class VttReader(
 
                 if (lineType == LineType.HEADER) {
                     val headerStartIndex = line.text.indexOf("-") + 1
-                    vtt.setTitle(line.text.substring(headerStartIndex, line.text.length).trim())
+                    vttBuilder.addTitle(line.text.substring(headerStartIndex, line.text.length).trim())
                     return@lineContinue
                 }
 
@@ -47,8 +44,8 @@ class VttReader(
             consumeStack()
         }
 
-        vtt.setLangClass(langClass)
-        return vtt
+        vttBuilder.addLangClass(langClass)
+        return vttBuilder.build()
     }
 
     fun dryText(): String {
@@ -58,13 +55,13 @@ class VttReader(
     private fun consumeStack() {
         val lineStackAnalyzer = LineStackAnalyzer(lineStack)
         if (lineStackAnalyzer.isCue()) {
-            vtt.addCue(lineStackAnalyzer.toCue())
+            vttBuilder.addCue(lineStackAnalyzer.toCue())
         }
         if (lineStackAnalyzer.isRegion()) {
-            vtt.addRegion(lineStackAnalyzer.toRegion())
+            vttBuilder.addRegion(lineStackAnalyzer.toRegion())
         }
         if (lineStackAnalyzer.isNote()) {
-            vtt.addNote(lineStackAnalyzer.toNote())
+            vttBuilder.addNote(lineStackAnalyzer.toNote())
         }
         lineStack.clear()
     }
