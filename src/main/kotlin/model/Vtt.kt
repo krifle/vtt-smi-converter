@@ -4,7 +4,7 @@ import writer.SyncTag
 
 data class Vtt(
     val title: String,
-    var langClass: LangClass,
+    val langClass: LangClass,
     val cues: List<Cue>,
     val regions: List<Region>,
     val notes: List<Note>
